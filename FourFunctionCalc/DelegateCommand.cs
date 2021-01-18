@@ -19,7 +19,7 @@ namespace FourFunctionCalc
 
         public DelegateCommand(Action<object> action, bool runAsTask) // Full constructor for DelegateCommand
         {
-            _action = action; ;
+            _action = action;
             _ranAsTask = runAsTask;
         }
         #endregion
