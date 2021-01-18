@@ -24,7 +24,7 @@ namespace FourFunctionCalc
             }
         }
 
-        public DelegateCommand AddToDisplay { get; }
+        public DelegateCommand AddToDisplay { get; };
 
         public CalcVM()
         {
