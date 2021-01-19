@@ -12,8 +12,12 @@ namespace FourFunctionCalc
 {
     public class CalcVM : INotifyPropertyChanged
     {
+        #region Fields
         private readonly CalcLogic _logic; 
         private string _display;
+        #endregion
+
+        #region Properties
         public string Display
         {
             get => _display;
@@ -24,35 +28,76 @@ namespace FourFunctionCalc
             }
         }
 
-        public DelegateCommand AddToDisplay { get; }
+        #endregion
 
+        #region Constructors
         public CalcVM()
         {
-            Display = "0";
             _logic = new CalcLogic();
+            Display = "0";
             AddToDisplay = new DelegateCommand(AddToDisplayInternal);
+            Calculation = new DelegateCommand(CalculationInternal);
+            SetOperation = new DelegateCommand(SetOperationInternal);
         }
+        #endregion
 
-
-
+        #region Commands
+        public ICommand AddToDisplay { get; }
+        public ICommand SetOperation { get; }
+        public ICommand Calculation { get; }
         
-        private void AddToDisplayInternal(object num)
+        #endregion
+
+        private void AddToDisplayInternal(object param)
         {
-            if (Display.Equals("0")) // Replaces the 0 in a blank calculator
-                Display = (string)num;
-            else if (Display.Length < 10) // Caps Display to a length of 10
-                Display += num;
+            switch (param)
+            {
+                case "Clear":
+                    Display = "0";
+                    _logic.FirstNum = "0";
+                    _logic.SecondNum = "0";
+                    _logic.Operation = string.Empty; 
+                    break;
+
+                case "-":
+                    if (Display.Contains("-"))
+                        Display = Display.Remove(Display.IndexOf("-"), 1);
+                    else
+                        Display = "-" + Display;
+                    break;
+
+                default:
+                    if (Display.Equals("0"))
+                        Display = (string)param;
+                    else if (Display.Length < 10)
+                        Display += param;
+                    break;
+
+            }
         }
 
-        public void ClearDisplay()
+        private void SetOperationInternal(object param)
         {
-            Display = "";
+            _logic.FirstNum = Display;
+            _logic.Operation = param.ToString();
+            Display = "0";
         }
 
+        private void CalculationInternal(object param)
+        {
+            _logic.SecondNum = Display;
+            Display = _logic.Calculate(_logic.FirstNum, _logic.SecondNum, _logic.Operation);
+        }
+
+
+
+
+        #region Event Stuff
         public event PropertyChangedEventHandler PropertyChanged;
         protected void NotifyPropertyChanged([CallerMemberName] string caller = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
         }
+        #endregion
     }
 }

@@ -23,20 +23,20 @@
             <Button x:Name="b1" Content="1" Width="60" Height="60" CommandParameter="1" Command="{Binding AddToDisplay}" />
             <Button x:Name="b2" Content="2" Width="60" Height="60" CommandParameter="2" Command="{Binding AddToDisplay}" />
             <Button x:Name="b3" Content="3" Width="60" Height="60" CommandParameter="3" Command="{Binding AddToDisplay}" />
-            <Button x:Name="negative" Content="(-)" Width="60" Height="60"/>
-            <Button x:Name="_decimal" Content="." Width="60" Height="60"/>
-            <Button x:Name="b0" Content="0" Width="60" Height="60"/>
+            <Button x:Name="negative" Content="(-)" Width="60" Height="60" CommandParameter="-" Command="{Binding AddToDisplay}"/>
+            <Button x:Name="_decimal" Content="." Width="60" Height="60" CommandParameter="." Command="{Binding AddToDisplay}"/>
+            <Button x:Name="b0" Content="0" Width="60" Height="60" CommandParameter="0" Command="{Binding AddToDisplay}"/>
         </WrapPanel>
         <StackPanel HorizontalAlignment="Left" Height="244" Margin="231,158,0,0" VerticalAlignment="Top" Width="60">
-            <Button x:Name="add" Content="+" Height="60"/>
-            <Button x:Name="subtract" Content="-" Height="60"/>
-            <Button x:Name="multiply" Content="*" Height="60"/>
-            <Button x:Name="divide" Content="/" Height="60"/>
+            <Button x:Name="add" Content="+" Height="60" CommandParameter="+" Command="{Binding SetOperation}"/>
+            <Button x:Name="subtract" Content="-" Height="60" CommandParameter="-" Command="{Binding SetOperation}"/>
+            <Button x:Name="multiply" Content="*" Height="60" CommandParameter="*" Command="{Binding SetOperation}"/>
+            <Button x:Name="divide" Content="/" Height="60" CommandParameter="/" Command="{Binding SetOperation}"/>
         </StackPanel>
-        <Button x:Name="clear" Content="Clear" HorizontalAlignment="Left" Margin="22,79,0,0" VerticalAlignment="Top" Width="179" Height="60"/>
-        <Button x:Name="equal" Content="=" HorizontalAlignment="Left" Margin="231,79,0,0" VerticalAlignment="Top" Width="60" Height="60"/>
-
-        <Label  x:Name="display" HorizontalAlignment="Left" Margin="22,10,0,0" VerticalAlignment="Top" Width="269" Height="51" FontSize="36" Background="Black" Foreground="White" HorizontalContentAlignment="Right" Content="{Binding Path=Display}">
+        <Button x:Name="clear" Content="Clear" HorizontalAlignment="Left" Margin="22,79,0,0" VerticalAlignment="Top" Width="179" Height="60" CommandParameter="Clear" Command="{Binding AddToDisplay}"/>
+        <Button x:Name="equal" Content="=" HorizontalAlignment="Left" Margin="231,79,0,0" VerticalAlignment="Top" Width="60" Height="60" Command="{Binding Calculation}"/>
+        
+        <Label  x:Name="display" HorizontalAlignment="Left" Margin="22,10,0,0" VerticalAlignment="Top" Width="269" Height="51" FontSize="36" Background="Black" Foreground="White" HorizontalContentAlignment="Right" Content="{Binding Display}">
         </Label>
     </Grid>
 </Window>
